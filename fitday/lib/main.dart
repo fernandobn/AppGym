@@ -1,3 +1,6 @@
+import 'screens/rutinas/rutinas_folder_screens.dart';
+
+import 'screens/rutinas/rutinas_menu_screens.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/calendar_screen.dart';
@@ -17,6 +20,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => MenuScreen(),
         '/calendar': (context) => CalendarScreen(),
+        '/menu_rutinas': (context) => RutinasMenuScreens(),
+        '/carpeta_rutinas': (context) => RutinasFolderScreens(),
+
         '/agregar_rutinas': (context) => RutinasFormScreens(),
         // '/settings': (context) => SettingsScreen(),
       },
@@ -39,7 +45,7 @@ class MainScaffold extends StatelessWidget {
         Navigator.pushNamed(context, '/calendar');
         break;
       case 2:
-        Navigator.pushNamed(context, '/agregar_rutinas');
+        //Navigator.pushNamed(context, '/agregar_rutinas');
         break;
     }
   }
@@ -65,7 +71,7 @@ class MainScaffold extends StatelessWidget {
             icon: Icon(Icons.calendar_today),
             label: 'Calendario',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Rutinas'),
+          //BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Rutinas'),
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Lista'),
         ],
       ),
