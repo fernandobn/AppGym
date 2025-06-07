@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'screens/calendar_screen.dart';
 import 'screens/menu_screen.dart';
 
 void main() {
@@ -11,7 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/',
-      routes: {'/': (context) => MenuScreen()},
+      routes: {
+        '/': (context) => MenuScreen(),
+        '/calendar': (context) => CalendarScreen(),
+      },
     );
   }
 }
