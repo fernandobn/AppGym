@@ -21,8 +21,33 @@ class CalendarScreen extends StatelessWidget {
           actions: [
             IconButton(
               icon: Icon(Icons.calendar_month, color: Colors.white),
-              onPressed: () {
-                // Acción al presionar el botón de calendario
+              onPressed: () async {
+                DateTime? selectedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  builder: (context, child) {
+                    // Esto es opcional para darle tema oscuro si quieres
+                    return Theme(
+                      data: Theme.of(context).copyWith(
+                        colorScheme: ColorScheme.dark(
+                          primary: Colors.green, // color header calendario
+                          onPrimary: Colors.white, // color texto header
+                          surface: Colors.grey[900]!, // fondo calendario
+                          onSurface: Colors.white, // color texto calendario
+                        ),
+                        dialogBackgroundColor: Colors.black,
+                      ),
+                      child: child!,
+                    );
+                  },
+                );
+
+                if (selectedDate != null) {
+                  // Aquí puedes hacer algo con la fecha seleccionada
+                  print('Fecha seleccionada: $selectedDate');
+                }
               },
             ),
           ],
