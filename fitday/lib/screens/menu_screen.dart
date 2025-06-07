@@ -41,7 +41,7 @@ class MenuScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/calendar');
                   },
                   child: const Text(
                     'Empezar Ahora',
