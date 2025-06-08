@@ -61,12 +61,17 @@ class EjericiosFormScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/calendar');
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 padding: EdgeInsets.symmetric(vertical: 16),
               ),
-              child: Text('Guardar', style: TextStyle(fontSize: 18)),
+              child: Text(
+                'Guardar',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
             ),
           ],
         ),
