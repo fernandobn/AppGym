@@ -147,9 +147,9 @@ class RepeticionesSpin extends StatelessWidget {
         SpinBox(
           min: 1,
           max: 10,
-          value: 1,
-          onChanged: (value) {},
-          decoration: InputDecoration(
+          value: value,
+          onChanged: onChanged,
+          decoration: const InputDecoration(
             filled: true,
             fillColor: Colors.white,
             border: OutlineInputBorder(),
