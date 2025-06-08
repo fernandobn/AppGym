@@ -1,77 +1,156 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinbox/flutter_spinbox.dart';
 
-class EjericiosFormScreen extends StatelessWidget {
-  const EjericiosFormScreen({Key? key}) : super(key: key);
+import '../../main.dart';
+
+void main() => runApp(MaterialApp(home: EjericiosFormScreen()));
+
+class EjericiosFormScreen extends StatefulWidget {
+  @override
+  _EjericiosFormScreenState createState() => _EjericiosFormScreenState();
+}
+
+class _EjericiosFormScreenState extends State<EjericiosFormScreen> {
+  double currentCount = 1;
+  List<ExerciseBlock> exerciseBlocks = [ExerciseBlock(index: 1)];
+
+  void updateBlocks(double value) {
+    setState(() {
+      int newCount = value.toInt();
+      int oldCount = exerciseBlocks.length;
+
+      if (newCount > oldCount) {
+        for (int i = oldCount + 1; i <= newCount; i++) {
+          exerciseBlocks.add(ExerciseBlock(index: i));
+        }
+      } else if (newCount < oldCount) {
+        exerciseBlocks.removeRange(newCount, oldCount);
+      }
+
+      currentCount = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Formulario de ejercicios'),
-        backgroundColor: Color(0xFF2c2c2e),
-        leading: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Image.asset('assets/icono1.png'),
-        ),
-        titleTextStyle: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+      backgroundColor: const Color(0xFF2c2c2e),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            RepeticionesSpin(value: currentCount, onChanged: updateBlocks),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: exerciseBlocks.length,
+                itemBuilder: (context, index) {
+                  return exerciseBlocks[index];
+                },
+              ),
+            ),
+          ],
         ),
       ),
-      backgroundColor: Color(0xFF2c2c2e),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
+    );
+  }
+}
+
+// ---------- Componente de diseño: ExerciseBlock ----------
+class ExerciseBlock extends StatefulWidget {
+  final int index;
+
+  const ExerciseBlock({Key? key, required this.index}) : super(key: key);
+
+  @override
+  _ExerciseBlockState createState() => _ExerciseBlockState();
+}
+
+class _ExerciseBlockState extends State<ExerciseBlock> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
+  String selectedUnit = 'kg';
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: const Color(0xFF2c2c2e),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextFormField(
+              controller: nameController,
               style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.fitness_center),
+              decoration: const InputDecoration(
                 labelText: 'Nombre del ejercicio',
                 labelStyle: TextStyle(color: Colors.white),
-                floatingLabelStyle: TextStyle(color: Colors.white),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white24),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: BorderSide(color: Colors.green),
                 ),
               ),
             ),
-            SizedBox(height: 25),
-
-            Text(
-              'Repeticiones por serie:',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            SizedBox(height: 10),
-            SpinBox(
-              min: 1,
-              max: 10,
-              value: 1,
-              onChanged: (value) => print('Repeticiones: $value'),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/calendar');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding: EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: Text(
-                'Guardar',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: DropdownButtonFormField<String>(
+                    value: selectedUnit,
+                    dropdownColor: Colors.grey[900],
+                    decoration: const InputDecoration(
+                      labelText: 'Unidad',
+                      labelStyle: TextStyle(color: Colors.white),
+                      enabledBorder: OutlineInputBorder(),
+                    ),
+                    style: const TextStyle(color: Colors.white),
+                    items: ['kg', 'lbs'].map((unit) {
+                      return DropdownMenuItem<String>(
+                        value: unit,
+                        child: Text(
+                          unit,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedUnit = value!;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: TextFormField(
+                    readOnly: true,
+                    initialValue: '${widget.index}',
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      labelText: 'Repetición',
+                      labelStyle: TextStyle(color: Colors.white),
+                      enabledBorder: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  flex: 2,
+                  child: TextFormField(
+                    controller: timeController,
+                    style: const TextStyle(color: Colors.white),
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Tiempo (seg)',
+                      labelStyle: TextStyle(color: Colors.white),
+                      enabledBorder: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
