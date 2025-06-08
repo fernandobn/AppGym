@@ -79,21 +79,7 @@ class _ExerciseBlockState extends State<ExerciseBlock> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            TextFormField(
-              controller: nameController,
-              style: const TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
-                labelText: 'Nombre del ejercicio',
-                labelStyle: TextStyle(color: Colors.white),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white24),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green),
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
+            SizedBox(height: 4),
             Row(
               children: [
                 Expanded(
