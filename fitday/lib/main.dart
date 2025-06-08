@@ -1,3 +1,5 @@
+import 'screens/ejercicios/ejericios_form_screen.dart';
+
 import 'screens/rutinas/rutinas_folder_screens.dart';
 
 import 'screens/rutinas/rutinas_menu_screens.dart';
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         '/carpeta_rutinas': (context) => RutinasFolderScreens(),
 
         '/agregar_rutinas': (context) => RutinasFormScreens(),
-        // '/settings': (context) => SettingsScreen(),
+        '/agregar_ejercicios': (context) => EjericiosFormScreen(),
       },
     );
   }

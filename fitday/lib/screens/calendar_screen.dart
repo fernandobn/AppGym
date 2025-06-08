@@ -130,7 +130,7 @@ class CalendarScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.limeAccent,
           onPressed: () {
-            Navigator.pushNamed(context, '/menu_rutinas');
+            Navigator.pushNamed(context, '/agregar_ejercicios');
           },
           child: Icon(Icons.add, color: Colors.black),
         ),
